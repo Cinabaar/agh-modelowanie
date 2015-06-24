@@ -3,8 +3,7 @@
 
 #include "timer.h"
 
-double
-get_timer(void)
+double get_timer(void)
 {
     struct rusage ru;
 

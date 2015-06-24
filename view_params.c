@@ -1,7 +1,6 @@
 #include "view_params.h"
 
-void
-view_setup(view_params *vp,
+void view_setup(view_params *vp,
 	   const vec3 eye, const vec3 gaze, const vec3 up,
 	   real fovy, real aspect, real znear, real zfar)
 {
@@ -53,8 +52,7 @@ view_setup(view_params *vp,
     VecNormalize(vp->nb);
 }
 
-void
-view_matrix(const view_params *vp, real matrix[16])
+void view_matrix(const view_params *vp, real matrix[16])
 {
 #define M(i,j)	matrix[4*j+i]
     M(0,0) = vp->right[0];

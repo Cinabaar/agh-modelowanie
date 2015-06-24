@@ -3,8 +3,7 @@
 #include <string.h>
 #include "shader.h"
 
-shader *
-shader_load(const char *shader_name)
+shader * shader_load(const char *shader_name)
 {
     int vsize, fsize, n;
     char buf[512];
@@ -68,8 +67,7 @@ shader_load(const char *shader_name)
     return s;
 }
 
-void
-shader_free(shader *s)
+void shader_free(shader *s)
 {
     free(s->fshader);
     free(s->vshader);

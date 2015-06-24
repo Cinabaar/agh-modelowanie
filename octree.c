@@ -11,8 +11,7 @@
 #include "view_params.h"
 #include "timer.h"
 
-static int
-verify(real mid, int d, vec3 verts[], int lo, int hi, int code)
+static int verify(real mid, int d, vec3 verts[], int lo, int hi, int code)
 {
     int j, k;
     int fail = 0;
@@ -38,8 +37,7 @@ verify(real mid, int d, vec3 verts[], int lo, int hi, int code)
  * index in the range [lo,hi+1] indicating where the partition falls. The array
  * will be rearranged so that "less-than" values fall in the range [lo,index-1]
  * and "greater-or-equal" values fall in the range [index,hi] */
-static int
-partition(vec3 verts[], int itable[], int lo, int hi, int dim, real d)
+static int partition(vec3 verts[], int itable[], int lo, int hi, int dim, real d)
 {
     int i, j, k;
 
@@ -62,8 +60,7 @@ partition(vec3 verts[], int itable[], int lo, int hi, int dim, real d)
     return j;
 }
 
-static octree_node *
-build(int lo, int hi, unsigned char depth,
+static octree_node * build(int lo, int hi, unsigned char depth,
       vec3 verts[], int itable[], mesh *mesh)
 {
     octree_node *o, *so;
@@ -182,18 +179,6 @@ build(int lo, int hi, unsigned char depth,
     VecZero(o->cone_normal);
     o->cone_angle = 1.0;
 
-    /* x partition
-     * |x-|x+|
-     * lo m  hi
-     *
-     * y partition
-     * |x-y-|x-y+|x+y-|x+y+|
-     * lo   l    m    h    hi
-     *
-     * z partition
-     * |x-y-z-|x-y-z+|x-y+z-|x-y+z+|x+y-z-|x+y-z+|x+y+z-|x+y+z+|
-     * lo     ll     l      lh     m      hl     h      hh     hi
-     */
     for (j=0; j<8; j++)
 	o->subtree[j]=NULL;
 
@@ -261,8 +246,7 @@ build(int lo, int hi, unsigned char depth,
     return o;
 }
 
-static void
-normalize_cones(octree_node *o)
+static void normalize_cones(octree_node *o)
 {
     int k;
     if (o != NULL) {
@@ -273,8 +257,7 @@ normalize_cones(octree_node *o)
     }
 }
 
-static void
-fix_cones(octree_node *o)
+static void fix_cones(octree_node *o)
 {
     int k;
     if (o != NULL) {
@@ -285,8 +268,7 @@ fix_cones(octree_node *o)
     }
 }
 
-octree *
-octree_create(mesh *m)
+octree * octree_create(mesh *m)
 {
     vec3 *vtmp;
     octree *tree;
@@ -332,7 +314,8 @@ octree_create(mesh *m)
     tree->vertex_nodes=malloc(sizeof(*tree->vertex_nodes)*m->nv);
     for (j=0; j<m->nv; j++) {
 	n=tree->root;
-	while (!n->leaf) {
+	while (!n->leaf)
+	{
 	    if (!aabb_midpt_pt_inside(n->bb_midpt, n->bb_extent, m->verts[j])) {
 		vec3 min, max;
 		aabb_midpt_to_corners(min, max, n->bb_midpt, n->bb_extent);
@@ -516,8 +499,7 @@ octree_create(mesh *m)
     return tree;
 }
 
-static void
-free_node(octree_node *n)
+static void free_node(octree_node *n)
 {
     int k;
 
@@ -528,8 +510,7 @@ free_node(octree_node *n)
     }
 }
 
-void
-octree_free(octree *o)
+void octree_free(octree *o)
 {
     free_node(o->root);
     free(o->vertex_nodes);

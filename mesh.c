@@ -8,8 +8,7 @@ static void face_normals(mesh *m);
 static void vertex_normals(mesh *m);
 static void vertex_bbox(mesh *m);
 
-mesh *
-mesh_load(const char *file)
+mesh * mesh_load(const char *file)
 {
     vec3 *verts=NULL;
     vec3 *vnormals=NULL;
@@ -24,7 +23,7 @@ mesh_load(const char *file)
     mesh *m=NULL;
     int i, j, k, r, nf;
     const char *field_order[] = {
-	"x","y","z", "nx","ny","nz", "red","green","blue", "tu","tv", NULL
+		"x","y","z", "nx","ny","nz", "red","green","blue", "tu","tv", NULL
     };
 
     if ((fp = fopen(file, "r")) == NULL)
@@ -235,8 +234,7 @@ vertex_normals(mesh *m)
 	VecNormalize(m->vnormals[j]);
 }
 
-static void
-vertex_bbox(mesh *m)
+static void vertex_bbox(mesh *m)
 {
     int j;
 
@@ -255,8 +253,7 @@ vertex_bbox(mesh *m)
     }
 }
 
-void
-mesh_free(mesh *m)
+void mesh_free(mesh *m)
 {
     if (m) {
 	if (m->verts)
@@ -275,8 +272,7 @@ mesh_free(mesh *m)
     }
 }
 
-void
-mesh_flip(mesh *m)
+void mesh_flip(mesh *m)
 {
     int j,k;
 

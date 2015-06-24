@@ -102,7 +102,7 @@ static const unsigned char letters[][11] = {
 #define FONT_WIDTH  6
 #define FONT_HEIGHT 11
 #else
-// lfp "artsie" font
+//font stuff
 unsigned char letters[][13] = {
     {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00},
     {0x00,0x00,0x10,0x00,0x10,0x10,0x10,0x10,0x10,0x10,0x10,0x00,0x00},
@@ -204,8 +204,7 @@ unsigned char letters[][13] = {
 #define FONT_HEIGHT 13
 #endif
 
-void
-draw_string(const char *s, unsigned int color)
+void draw_string(const char *s, unsigned int color)
 {
     char c;
     double d[4];
@@ -216,12 +215,16 @@ draw_string(const char *s, unsigned int color)
     glColor4ub((color>>16)&0xff, (color>>8)&0xff, color&0xff, 0xff);
     glRasterPos4dv(d);
 
-    while ((c = *s++) != 0) {
-	if (c >= ' ' && c <= '~')
-	    glBitmap(FONT_WIDTH, FONT_HEIGHT,
-		     0.0, 0.0, 6.0, 0.0, letters[c - ' ']);
-	else
-	    glBitmap(FONT_WIDTH, FONT_HEIGHT,
-		     0.0, 0.0, 6.0, 0.0, letters[0]); /* space */
+    while ((c = *s++) != 0)
+    {
+        if (c >= ' ' && c <= '~')
+        {
+            glBitmap(FONT_WIDTH, FONT_HEIGHT, 0.0, 0.0, 6.0, 0.0, letters[c - ' ']);
+        }
+        else
+        {
+            glBitmap(FONT_WIDTH, FONT_HEIGHT,
+                     0.0, 0.0, 6.0, 0.0, letters[0]); /* space */
+        }
     }
 }

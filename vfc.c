@@ -1,7 +1,6 @@
 #include "vfc.h"
 
-int
-vf_point_inside(const view_params *vp, const vec3 v)
+int vf_point_inside(const view_params *vp, const vec3 v)
 {
     vec3 v_eye;
 
@@ -22,8 +21,7 @@ vf_point_inside(const view_params *vp, const vec3 v)
     return 1;
 }
 
-int
-vf_aabb_inside(const view_params *vp, const vec3 min, const vec3 max)
+int vf_aabb_inside(const view_params *vp, const vec3 min, const vec3 max)
 {
     vec3 tmp;
 
@@ -52,8 +50,7 @@ vf_aabb_inside(const view_params *vp, const vec3 min, const vec3 max)
     return 0;
 }
 
-int
-vf_sphere_inside(const view_params *vp, const vec3 center, real radius)
+int vf_sphere_inside(const view_params *vp, const vec3 center, real radius)
 {
     vec3 c_eye;
 

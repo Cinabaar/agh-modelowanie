@@ -1,7 +1,3 @@
-/* TODO:
- * Change code so that octree bounding sphere is distance from center to
- * farthest vertex of any triangle which has a vertex inside the octree node */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,6 +8,16 @@
 #include <GL/glut.h>
 #include <GL/glext.h>
 #include <GL/freeglut_ext.h>
+
+#include "aabb.h"
+#include "draw_string.h"
+#include "octree.h"
+#include "mesh.h"
+#include "view_params.h"
+#include "vec3.h"
+#include "vfc.h"
+#include "shader.h"
+#include "timer.h"
 
 #define TRIHASH_SIZE	15889
 
@@ -34,18 +40,8 @@ static PFNGLGETINFOLOGARBPROC glGetInfoLogARB = NULL;
 static PFNGLUNIFORM3FARBPROC glUniform3fARB = NULL;
 static PFNGLGETUNIFORMLOCATIONARBPROC glGetUniformLocationARB = NULL;
 
-#define LoadGLFunc(name) \
-	(name = glutGetProcAddress(#name))
+#define LoadGLFunc(name) \ (name = glutGetProcAddress(#name))
 
-#include "aabb.h"
-#include "draw_string.h"
-#include "octree.h"
-#include "mesh.h"
-#include "view_params.h"
-#include "vec3.h"
-#include "vfc.h"
-#include "shader.h"
-#include "timer.h"
 
 int		win_width = 640*2;
 int		win_height = 480*2;
@@ -82,7 +78,8 @@ octree_node**	proxies=NULL;
 
 /* active lists point to boundary octree nodes */
 typedef struct active_node active_node;
-struct active_node {
+struct active_node
+{
     octree_node	*node;
     active_node	*next;
 } *active_list;
@@ -106,25 +103,25 @@ int		tree_depth(const octree_node *o);
 float		detail_threshold = 1e-9;
 float		silhouette_threshold = 5e-10;
 
-static void
-print_info(GLhandleARB object)
+static void print_info(GLhandleARB object)
 {
     int len = 0;
 
     glGetObjectParameterivARB(object, GL_OBJECT_INFO_LOG_LENGTH_ARB, &len);
 
-    if (len != 0) {
-	char *buf = malloc(len);
-	glGetInfoLogARB(object, len, &len, buf);
-	printf("Object Info Log:\n%s\n", buf);
-	free(buf);
-    } else {
-	printf("No Info Log\n");
+    if (len != 0)
+	{
+		char *buf = malloc(len);
+		glGetInfoLogARB(object, len, &len, buf);
+		printf("Object Info Log:\n%s\n", buf);
+		free(buf);
+    } else
+	{
+		printf("No Info Log\n");
     }
 }
 
-void
-init_shader()
+void init_shader()
 {
     GLint status;
 
