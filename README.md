@@ -64,3 +64,9 @@ Pozostałe pliki stanowią głównie obudowę na wyświetlanie okna i renderowan
 
 Program obsługuje pliki w formacie .ply
 
+##Bibliografia
+
+Level of Detail for 3D Graphics, D. Luebke, et al.
+Perceptually Guided Simplification of Lit, Textured Meshes, N. Williams, et al.
+View-dependent simplification of arbitrary polygonal environments, D. Luebke, et al
+
