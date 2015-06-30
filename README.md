@@ -62,4 +62,5 @@ Kluczowe elementy to:
 
 Pozostałe pliki stanowią głównie obudowę na wyświetlanie okna i renderowanie modelu.
 
+Program obsługuje pliki w formacie .ply
 
